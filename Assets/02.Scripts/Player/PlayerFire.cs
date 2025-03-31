@@ -37,48 +37,50 @@ public class PlayerFire : PlayerComponent
         }
 
         // 자동 모드 이거나 "Fire1" 버튼이 입력되면..
-        if (_player.PlayMode == PlayMode.Auto || Input.GetButtonDown("Fire1"))
+        /*if (_player.PlayMode == PlayMode.Auto || Input.GetButtonDown("Fire1"))
         {
-            foreach (GameObject muzzle in Muzzles)
+            
+        }*/
+        
+        foreach (GameObject muzzle in Muzzles)
+        {
+            // 기존: 새로 생성
+            // GameObject bullet = Instantiate(BulletPrefab); // 인스턴스화
+                
+            // 개선: 풀 이용
+            // 총알 풀에 있는 총알들 중에서
+            // 비활성화 되어 있는 총알을 
+            // 발사 시킨다. (활성화 시킨다.)
+                
+            // 1. 미리 생성되어 있는 총알 풀을 쫙~ 조회하면서
+            /*List<Bullet> pool = BulletPool.Instance.Bullets;
+            foreach (Bullet bullet in pool)
             {
-                // 기존: 새로 생성
-                // GameObject bullet = Instantiate(BulletPrefab); // 인스턴스화
-                
-                // 개선: 풀 이용
-                // 총알 풀에 있는 총알들 중에서
-                // 비활성화 되어 있는 총알을 
-                // 발사 시킨다. (활성화 시킨다.)
-                
-                // 1. 미리 생성되어 있는 총알 풀을 쫙~ 조회하면서
-                /*List<Bullet> pool = BulletPool.Instance.Bullets;
-                foreach (Bullet bullet in pool)
+                // 2. 내가 원하는 타입이고, 비활성화 되어 있다면
+                if (bullet.BulletType == BulletType.Main && bullet.gameObject.activeInHierarchy == false)
                 {
-                    // 2. 내가 원하는 타입이고, 비활성화 되어 있다면
-                    if (bullet.BulletType == BulletType.Main && bullet.gameObject.activeInHierarchy == false)
-                    {
-                        // 3. 위치를 총구로 옮기고
-                        bullet.transform.position = muzzle.transform.position;
-                        
-                        bullet.Initialize();
-                        
-                        // 4. 발사한다. (활성화 한다.)
-                        bullet.gameObject.SetActive(true);
+                    // 3. 위치를 총구로 옮기고
+                    bullet.transform.position = muzzle.transform.position;
 
-                        break;
-                    }
-                }*/
+                    bullet.Initialize();
 
-                Bullet bullet = BulletPool.Instance.Create(BulletType.Main, muzzle.transform.position);
-                // bullet...
-            }
+                    // 4. 발사한다. (활성화 한다.)
+                    bullet.gameObject.SetActive(true);
 
-            foreach (GameObject subMuzzle in SubMuzzles)
-            {
-                BulletPool.Instance.Create(BulletType.Sub, subMuzzle.transform.position);
-            }
+                    break;
+                }
+            }*/
 
-            Cooltimer = _player.AttackCooltime;
+            Bullet bullet = BulletPool.Instance.Create(BulletType.Main, muzzle.transform.position);
+            // bullet...
         }
+
+        foreach (GameObject subMuzzle in SubMuzzles)
+        {
+            BulletPool.Instance.Create(BulletType.Sub, subMuzzle.transform.position);
+        }
+
+        Cooltimer = _player.AttackCooltime;
     }
 
 

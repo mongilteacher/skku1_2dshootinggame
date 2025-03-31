@@ -35,9 +35,13 @@ public class StatManager : MonoBehaviour
 
     public bool TryLevelUp(StatType statType)
     {
-        // 야! 데이터가 변화할때마다 너가 등록한 함수를 호출해줄게!
-        OnDataChangedCallback?.Invoke();
-        
-        return _stats[(int)statType].TryUpgrade();
+        if (_stats[(int)statType].TryUpgrade())
+        {
+            // 야! 데이터가 변화할때마다 너가 등록한 함수를 호출해줄게!
+            OnDataChangedCallback?.Invoke();
+            return true;
+        }
+
+        return false;
     }
 }
