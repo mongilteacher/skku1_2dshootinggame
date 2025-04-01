@@ -31,7 +31,7 @@ public class UI_TouchBounce : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _rectTransform.DOScale(new Vector3(EndScale, EndScale, 1f), Duration).SetUpdate(true).;
+        _rectTransform.DOScale(new Vector3(EndScale, EndScale, 1f), Duration).SetUpdate(true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
